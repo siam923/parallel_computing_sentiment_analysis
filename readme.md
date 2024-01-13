@@ -10,6 +10,15 @@ Prerequisites
 -   HTCondor installed on all relevant machines.
 -   Sudo privileges on all machines.
 
+Initial setup for python environment in the sentiment directory to run the sentiment classifier:
+
+```bash
+sudo apt install python3.10-venv
+python3-m venv venv
+source venv/bin/activate
+pip install transformers torch
+```
+
 Configuration Steps
 -------------------
 
