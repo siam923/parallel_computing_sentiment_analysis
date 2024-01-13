@@ -1,0 +1,10 @@
+# file name: sentiment.dag
+
+# Define the sentiment analysis jobs
+JOB A data.sub
+
+# Define the aggregation job
+JOB B agg.sub
+
+# Define dependencies
+PARENT A CHILD B

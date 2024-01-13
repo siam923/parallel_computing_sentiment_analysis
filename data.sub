@@ -1,0 +1,18 @@
+# HTCondor submit file - data.sub
+
+universe = vanilla
+executable = /home/ubuntu/sentiment/data.sh
+arguments  = "\'$(line)\'"
+#arguments  = "\'I love this new phone!\'"
+
+output     = /home/ubuntu/sentiment/outputs/sentiment_$(Process).out
+error      = /home/ubuntu/sentiment/error/sentiment_$(Process).err
+log        = /home/ubuntu/sentiment/log/sentiment_$(Process).log
+
+request_memory=1024
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+#queue
+
+queue line from input.txt
