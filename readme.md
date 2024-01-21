@@ -31,7 +31,6 @@ The UID domain ensures that user IDs (UIDs) are consistent across different mach
     -   Open the HTCondor configuration file (usually found at `/etc/condor/condor_config`).
     -   Add or modify the `UID_DOMAIN` setting to match your domain. For example:
 
-        makefileCopy code
 
         `UID_DOMAIN = ec2.internal`
 
@@ -40,7 +39,6 @@ The UID domain ensures that user IDs (UIDs) are consistent across different mach
 
     -   Restart the HTCondor service to apply the changes:
 
-        bashCopy code
 
         `sudo systemctl restart condor`
 
@@ -54,7 +52,6 @@ Set up the NFS share on the server and mount it on the client machines.
 
     -   Install the NFS kernel server package:
 
-        bashCopy code
 
         `sudo apt-get install nfs-kernel-server`
 
@@ -62,7 +59,6 @@ Set up the NFS share on the server and mount it on the client machines.
 
     -   Edit `/etc/exports` to share the desired directory. For example:
 
-        bashCopy code
 
         `/home/ubuntu/sentiment <client-IP>(rw,sync,no_subtree_check,anonuid=1000,anongid=1000)`
 
@@ -71,7 +67,6 @@ Set up the NFS share on the server and mount it on the client machines.
 
     -   Run the following command to apply the export settings:
 
-        bashCopy code
 
         `sudo exportfs -ra`
 
@@ -89,15 +84,18 @@ Set up the NFS share on the server and mount it on the client machines.
 
     -   Install NFS client utilities:
 
-        bashCopy code
 
         `sudo apt-get install nfs-common`
+
+2. Start client service:
+   -   In the execution host:
+
+   `udo systemctl start nfs-common.service`
 
 2.  Create Mount Point:
 
     -   Create a directory to serve as the mount point:
 
-        bashCopy code
 
         `sudo mkdir -p /home/ubuntu/sentiment`
 
@@ -105,7 +103,6 @@ Set up the NFS share on the server and mount it on the client machines.
 
     -   Mount the NFS share from the server:
 
-        bashCopy code
 
         `sudo mount -t nfs <server-IP>:/home/ubuntu/sentiment /home/ubuntu/sentiment`
 
@@ -122,7 +119,6 @@ After setting up NFS mounts, you can run DAG jobs in HTCondor.
 
     -   Use the `condor_submit_dag` command to submit the DAG job:
 
-        bashCopy code
 
         `condor_submit_dag example.dag`
 
